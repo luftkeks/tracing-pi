@@ -6,3 +6,6 @@ Außerdem könnte man ZFS mittels [dieser Anleitung](https://lookslikematrix.de/
 
 ## Day One - Hour Zero
 Ich habe zuerst dieses [Raspberry Pi Image](https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2022-01-28/) mir runter geladen und mit [Balea Etcher](https://www.balena.io/etcher/) auf die micro SD Karte gezogen.
+
+## Day Two - Hour Zero
+Dieser eine Container heißt [Portainer](https://www.portainer.io/). Außerdem könnte man ein [Pi-Hole](https://pi-hole.net/) installieren, sowie eine [gitlab](https://docs.gitlab.com/ee/install/docker.html) Instanz.
