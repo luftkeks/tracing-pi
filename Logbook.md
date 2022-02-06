@@ -53,4 +53,23 @@ docker --tlsverify \
     --tlskey=key.pem \
     -H=raspi.local:2376 version
 ```
-Der letzte Befehl funktioniert nicht - also starte ich meinen Raspi mal wieder neu.
+Der letzte Befehl funktioniert nicht - also starte ich meinen Raspi mal wieder neu. Ich hab ehrlich keine Ahnung was das tut oder nicht tut, die Meldung ist:
+```
+Client: Docker Engine - Community
+ Version:           20.10.12
+ API version:       1.41
+ Go version:        go1.16.12
+ Git commit:        e91ed57
+ Built:             Mon Dec 13 11:44:32 2021
+ OS/Arch:           linux/arm64
+ Context:           default
+ Experimental:      true
+Cannot connect to the Docker daemon at tcp://127.0.0.1:2376. Is the docker daemon running?
+```
+Ich mache trotzdem noch:
+```
+mkdir -pv ~/.docker
+cp -v {ca,cert,key}.pem ~/.docker
+export DOCKER_HOST=tcp://raspi.local:2376 DOCKER_TLS_VERIFY=1
+```
+und jetzt tut docker gar nicht mehr - offensichtlich ist irgendwas ziemlich kaputt.
