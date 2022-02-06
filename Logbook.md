@@ -91,3 +91,18 @@ sudo dockerd \
   -H=0.0.0.0:2376
 ```
 ich habe eine grundlegende Ahnung was dieser Befehl tun könnte.
+
+## Day Two - Hour Four
+
+Das mit dem TLS war ne scheiß Idee - ich mach das jetzt alles nicht rückgängig, aber ich änder mal den `DOCKER_HOST` wieder.
+```
+export DOCKER_HOST=unix:///var/run/docker.sock DOCKER_TLS_VERIFY=0
+```
+
+
+Ich habe rausgefunden, dass der Container den ich gestartet habe, der falsche war `docker stop <name>` beendet den container. Ich probiere jetzt anhand der [Anleitung](https://docs.portainer.io/v/ce-2.9/start/install/server/docker/linux) Portainer zu starten.
+```
+docker volume create portainer_data
+```
+
+### Jetzt tut gar nichts mehr - ich fange von vorne an und installiere das raspi komplett neu - dieses mal mit SSH zugriff per default.
