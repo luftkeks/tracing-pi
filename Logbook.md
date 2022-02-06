@@ -23,7 +23,7 @@ docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/d
 ```
 ausführen.
 
-Das tut soweit auch, allerdings komme ich noch nicht über den Browser auf die Portainer installation. Freundlicher weise verweißt die Portainer Website zu diesem Problem auf die *Docker Dokumentation* ~ihr mich auch jungs~. [Docker Dokumentation](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option) sagt ich muss socket options auf tcp ändern. Aber soll aufpassen und den [access protecten](https://docs.docker.com/engine/security/protect-access/). Also machen wir das mal so wie es dort steht.
+Das tut soweit auch, allerdings komme ich noch nicht über den Browser auf die Portainer installation. Freundlicherweise verweist die Portainer Website zu diesem Problem auf die *Docker Dokumentation* ~ihr mich auch jungs~. [Docker Dokumentation](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option) sagt ich muss socket options auf tcp ändern. Aber soll aufpassen und den [access protecten](https://docs.docker.com/engine/security/protect-access/). Also machen wir das mal so wie es dort steht.
 ```
 openssl genrsa -aes256 -out ca-key.pem 4096
 openssl req -new -x509 -days 365 -key ca-key.pem -sha256 -out ca.pem
@@ -73,3 +73,15 @@ cp -v {ca,cert,key}.pem ~/.docker
 export DOCKER_HOST=tcp://raspi.local:2376 DOCKER_TLS_VERIFY=1
 ```
 und jetzt tut docker gar nicht mehr - offensichtlich ist irgendwas ziemlich kaputt.
+
+## Day Two - Hour Three
+Okay scheinbar muss ich tcp auch noch über `dockerd` aktivieren. Hierfür nehme ich den Befehl aus der [Doku](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option) mit den IPs die ich oben irgendwo gesetzt habe.
+```
+sudo dockerd -H unix:///var/run/docker.sock -H tcp://raspi.local -H tcp://127.0.0.1
+```
+okay das war auch nicht ganz so richtig, ich habe nachdem ich über `systemctl stop docker.service` den service gestoppt habe nochmal den dockerd befehl von oben eingegeben und siehe da die letzten beiden Befehle die vorher nicht funktioniert haben, funktionieren jetzt. ABER ich habe jetzt auch eine offene konsole - das ist nervig.
+Ich beende Konsole über strg-C. Anschließend starte ich den Befehl
+```
+sudo dockerd     --tlsverify     --tlscacert=ca.pem     --tlscert=server-cert.pem     --tlskey=server-key.pem     -H=0.0.0.0:2376 -H unix:///var/run/docker.sock
+```
+ich habe eine grundlegende Ahnung was dieser Befehl tun könnte.
