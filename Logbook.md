@@ -82,6 +82,12 @@ sudo dockerd -H unix:///var/run/docker.sock -H tcp://raspi.local -H tcp://127.0.
 okay das war auch nicht ganz so richtig, ich habe nachdem ich über `systemctl stop docker.service` den service gestoppt habe nochmal den dockerd befehl von oben eingegeben und siehe da die letzten beiden Befehle die vorher nicht funktioniert haben, funktionieren jetzt. ABER ich habe jetzt auch eine offene konsole - das ist nervig.
 Ich beende Konsole über strg-C. Anschließend starte ich den Befehl
 ```
-sudo dockerd     --tlsverify     --tlscacert=ca.pem     --tlscert=server-cert.pem     --tlskey=server-key.pem     -H=0.0.0.0:2376 -H unix:///var/run/docker.sock
+sudo dockerd \
+  -H unix:///var/run/docker.sock\
+  --tlsverify\
+  --tlscacert=ca.pem\
+  --tlscert=server-cert.pem\
+  --tlskey=server-key.pem\
+  -H=0.0.0.0:2376
 ```
 ich habe eine grundlegende Ahnung was dieser Befehl tun könnte.
