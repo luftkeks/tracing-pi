@@ -10,7 +10,10 @@ Ich habe zuerst dieses [Raspberry Pi Image](https://downloads.raspberrypi.org/ra
 ## Day Two - Hour Zero
 Dieser eine Container heißt [Portainer](https://www.portainer.io/). Außerdem könnte man ein [Pi-Hole](https://pi-hole.net/) installieren, sowie eine [gitlab](https://docs.gitlab.com/ee/install/docker.html) Instanz.
 
-## Day two - Hour One
+## Day Two - Hour One
 Ziel ist es erstmal ssh zum laufen zu kriegen, dass ich mir den extra Bildschirm sparen kann. Dafür hab ich `sudo touch ssh` in `/` gemacht. Außerdem hab ich mittels `raspi-config` den hostname auf `raspi` geändert. Trotzdem wird die connection refused. Entsprechend dieses [Tutorials](https://dev.to/elalemanyo/raspberry-pi-setup-6jm) kann ich mir eine `.local` adresse machen, also führe ich `sudo apt-get install avahi-daemon` aus. Dieses [Tutorial](https://phoenixnap.com/kb/enable-ssh-raspberry-pi) liefert den richtigen Hinweis. Man kann SSH einfach über das grafische Interface über Preferences aktivieren.
 Nächster Punkt wäre Docker zu installieren. Ich verwende folgende [Anleitung](https://dev.to/elalemanyo/how-to-install-docker-and-docker-compose-on-raspberry-pi-1mo). Ergo beginne ich mit `curl -sSL https://get.docker.com | sh`. Anschließend adde ich den `pi` User zur Usergroup `docker` mittels `sudo usermod -aG docker pi`.
 Nach kurzer konsultation diverser Experten bin ich zu dem schluss gekommen, dass ich auch docker-compose installieren möchte. Da `pip3` in meinem RaspberryImage offensichtlich bereits installiert ist mache ich dies mittels `sudo pip3 install docker-compose`.
+Da ich docker definitiv im autostart haben möchte aktiviere ich dieses mittels `sudo systemctl enable docker`. Anschließend starte ich meinen rapsi neu.
+
+## Day Two - Hour Two
