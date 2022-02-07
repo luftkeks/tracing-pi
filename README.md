@@ -5,4 +5,6 @@ This project will be used to trace all my steps from installing an OS onto the m
 
 As this project will be only used by me the [logbook part](Logbook.md) will be written in german. If you need some parts translated in to english - feel free to contact me.
 
+After the first try failed i decided to redo the whole thing an start a new [logbook](logbook2.md).
+
 Notice to my future me: here is a good [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) in case you need one.
