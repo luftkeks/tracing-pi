@@ -52,8 +52,36 @@ Dann einen neuen Container namens `pi-hole` erstellenn der den container von `pi
 Vier Ports mappen:
 ```
 53 -> 53 TCP
-80 -> 80 TCP
-443 -> 443 TCP
+8081 -> 80 TCP
+40443 -> 443 TCP
 53 -> 53 UDP
 ```
-wobei ich den Port 80 später eventuell ändern will, obwohl ich keine Ahnung habe wie das geht.
+Port 80 und 443 hab ich entgegen der Anleitung direkt geändert (steht in einem Kommentar drunter).
+
+Dann das **Binden** an Volumes:
+```
+/dnsmasq.d
+-> /var/lib/docker/volumes/pihole/_data
+/pihole
+-> /var/lib/docker/volumes/pihole/_data
+```
+
+Bei *Network* soll man irgendeinen Hostname eingeben. Keine Ahnung was das macht und anschließend noch bei *Env* folgenden Umgebungsvariablen setzen:
+| Variable | Wert |
+| -------- | ------|
+| TZ       | Europe/Berlin | 
+| DNS1     | `1.1.1.1` | 
+| DNS2     | `<IP des Rounters>` |
+| WEBPASSWORD | `<passwort>` |
+Auch hier hab ich als DNS1 direkt mal die IP geändert und hoffe, dass das mit DNS zwei funktioniert. Anschließend klickte ich auf *Deploy Container* und schaute was passiert.
+
+Kurz es funktioniert. Allerdings hab ich jetzt die Angst, dass der Router die IP ständig ändert, weshalb ich jetzt die IP fix auf `...57` gesetzt habe indem ich `/etc/network/interfaces` so geändert habe, dass folgendes drinnen steht, weil das in einer [Anleitung](https://devconnected.com/how-to-change-ip-address-on-linux/) stand.
+
+```
+iface wlan0 inet static
+address x.x.x.57
+netmask 255.255.255.0
+gateway x.x.x.1
+```
+
+Anschließen über `sudo systemctl restart networking.service` das ganze neu starten. Jetzt muss ich nur noch raus finden, wie ich den DNS Server meines Rechners ändern kann.
