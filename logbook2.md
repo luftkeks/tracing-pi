@@ -44,3 +44,16 @@ Jetzt passieren Dinge.
 ACHTUNG - beim ersten login erstellt man seinen Admin user - das sollte man also schnell machen.
 
 Aber Step One ist scheinbar done. Portainer läuft!
+
+Weil ich keine Lust auf gitlab habe, fange ich jetzt mit dem Pi-Hole an. Mit [dieser Anleitung](https://smarthome-training.com/de/pi-hole-docker-installation/) scheint das echt einfach zu sein.
+
+Zuerst ein Volume erstellen: ich nenne das jetzt einfach mal wie in der Anleitung `pi-hole`.
+Dann einen neuen Container namens `pi-hole` erstellenn der den container von `pihole/pihole:latest` nutzt.
+Vier Ports mappen:
+```
+53 -> 53 TCP
+80 -> 80 TCP
+443 -> 443 TCP
+53 -> 53 UDP
+```
+wobei ich den Port 80 später eventuell ändern will, obwohl ich keine Ahnung habe wie das geht.
