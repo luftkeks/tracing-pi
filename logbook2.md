@@ -26,3 +26,21 @@ sudo systemctl enable docker
 
 Jetzt folgt direkt die installation von portainer. Den ganzen TLS Kram lasse ich aus, ich möchte eh nicht über tcp auf Docker zugreifen.
 Für die installation von Portainer folge ich wieder [dieser Anleitung](https://docs.portainer.io/v/ce-2.9/start/install/server/docker/linux).
+
+## Viele Tage später
+
+Ja Folgen wir dieser Anleitung.
+```
+docker volume create portainer_data
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
+    --restart=always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v portainer_data:/data \
+    cr.portainer.io/portainer/portainer-ce:2.9.3
+```
+
+Jetzt passieren Dinge.
+
+ACHTUNG - beim ersten login erstellt man seinen Admin user - das sollte man also schnell machen.
+
+Aber Step One ist scheinbar done. Portainer läuft!
